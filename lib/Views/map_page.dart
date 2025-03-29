@@ -83,56 +83,6 @@ class _MapPageState extends State<MapPage> {
                       color: Colors.red,
                       size: 40,
                     ),
-                  ),
-                  Marker(
-                    point: LatLng(34.052235, -118.243683),
-                    width: 40,
-                    height: 40,
-                    child: const Icon(
-                      Icons.location_on_rounded,
-                      color: Colors.blue,
-                      size: 40,
-                    ),
-                  ),
-                  Marker(
-                    point: LatLng(34.057235, -118.245683),
-                    width: 40,
-                    height: 40,
-                    child: const Icon(
-                      Icons.location_on_rounded,
-                      color: Colors.blue,
-                      size: 40,
-                    ),
-                  ),
-                  Marker(
-                    point: LatLng(34.062235, -118.250683),
-                    width: 40,
-                    height: 40,
-                    child: const Icon(
-                      Icons.location_on_rounded,
-                      color: Colors.blue,
-                      size: 40,
-                    ),
-                  ),
-                  Marker(
-                    point: LatLng(34.067235, -118.255683),
-                    width: 40,
-                    height: 40,
-                    child: const Icon(
-                      Icons.location_on_rounded,
-                      color: Colors.blue,
-                      size: 40,
-                    ),
-                  ),
-                  Marker(
-                    point: LatLng(34.072235, -118.260683),
-                    width: 40,
-                    height: 40,
-                    child: const Icon(
-                      Icons.location_on_rounded,
-                      color: Colors.blue,
-                      size: 40,
-                    ),
                   )
                 ],
               ),
@@ -145,6 +95,58 @@ class _MapPageState extends State<MapPage> {
                   )
                 ])
             ]
+          ),
+          Positioned(
+            right: 0,
+            bottom: 0,
+            left: 0,
+            top: 0,
+            child: DraggableScrollableSheet(
+              controller: DraggableScrollableController(
+                
+              ),
+              initialChildSize: 0.06,
+              minChildSize: 0.06,
+              maxChildSize: 0.6,
+              expand: false,
+              snap: true,
+              snapAnimationDuration: const Duration(milliseconds: 200),
+              snapSizes: [0.06, 0.6],
+              builder: (BuildContext context, ScrollController scrollController){
+                return Container(
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 0, 29, 61),
+                    borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                  ),
+                  child: SingleChildScrollView(
+                    controller: scrollController,
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 10),
+                        Container(
+                          width: 40,
+                          height: 5,
+                          decoration: BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        const Text(
+                          'Ruta de la Feria Científica',
+                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color.fromARGB(255, 255, 214, 10)),
+                        ),
+                        const SizedBox(height: 10),
+                        const Text(
+                          'Esta es la ruta de la feria científica, por favor siga las indicaciones.',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 16, color: Color.fromARGB(255, 255, 214, 10)),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              }),
           )
         ],
       )
