@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:guaguero/Views/map_page.dart';
-import 'package:guaguero/Views/Settings_page.dart';
+import 'package:guaguero/Views/Account_page.dart';
 
-class AccountPage extends StatelessWidget {
-  const AccountPage({Key? key}) : super(key: key);
+class SettingsPage extends StatelessWidget {
+  const SettingsPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class AccountPage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           const Icon(
-                            Icons.directions_bus,
+                            Icons.settings,
                             size: 125,
                             color: accentColor,
                           ),
@@ -47,7 +47,7 @@ class AccountPage extends StatelessWidget {
                                     text: const TextSpan(
                                       children: [
                                         TextSpan(
-                                          text: 'MI\n',
+                                          text: 'CONFIGURACIÓN\n',
                                           style: TextStyle(
                                             color: Colors.amber,
                                             fontSize: 28,
@@ -62,7 +62,7 @@ class AccountPage extends StatelessWidget {
                                           child: Padding(
                                             padding: EdgeInsets.only(top: 8.0),
                                             child: Text(
-                                              'PERFIL',
+                                              'GENERAL',
                                               style: TextStyle(
                                                 color: Colors.amber,
                                                 fontSize: 40,
@@ -78,14 +78,6 @@ class AccountPage extends StatelessWidget {
                                 ],
                               ),
                               const SizedBox(height: 4),
-                              const Text(
-                                'YOELMI ALEXANDER',
-                                style: TextStyle(
-                                  color: Colors.amber,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
                             ],
                           ),
                         ],
@@ -107,7 +99,7 @@ class AccountPage extends StatelessWidget {
             fit: StackFit.expand,
             children: [
               Positioned(
-                top: 280.0,
+                top: 280.0, // Match the top position from AccountPage
                 left: 20.0,
                 right: 20.0,
                 child: Container(
@@ -127,68 +119,56 @@ class AccountPage extends StatelessWidget {
                       ),
                     ],
                   ),
-                  constraints: const BoxConstraints(minHeight: 150),
+                  constraints: const BoxConstraints(
+                    minHeight: 150,
+                  ), // Match the height constraint
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const SizedBox(height: 25.0),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Icon(Icons.phone, color: accentColor, size: 30),
-                          const SizedBox(width: 12.0),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
-                              Text(
-                                'TELÉFONO',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18,
-                                ),
-                              ),
-                              Text(
-                                '809-000-2288',
-                                style: TextStyle(fontSize: 16),
-                              ),
-                            ],
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: accentColor,
+                            foregroundColor: Colors.black,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            padding: const EdgeInsets.symmetric(vertical: 14.0),
                           ),
-                        ],
+                          onPressed: () {
+                            // Add functionality for dark mode toggle here
+                          },
+                          child: const Text(
+                            'Modo Oscuro',
+                            style: TextStyle(
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
                       ),
                       const Divider(
-                        height: 32.0,
-                        thickness: 1.5, // Slightly increase thickness
-                        color: Colors.black, // Change color to black
+                        height: 50.0, // Increase height to add more space
+                        thickness: 1.5,
+                        color: Colors.black,
                       ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Icon(Icons.email, color: accentColor, size: 30),
-                          const SizedBox(width: 12.0),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
-                              Text(
-                                'CORREO',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18,
-                                ),
-                              ),
-                              Text(
-                                'Ejemplo@gmail.com',
-                                style: TextStyle(fontSize: 16),
-                              ),
-                            ],
+                          const Text(
+                            'Cambiar Datos',
+                            style: TextStyle(
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
                           ),
-                        ],
-                      ),
-                      const SizedBox(height: 24.0),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
+                          const SizedBox(height: 16.0),
                           SizedBox(
-                            width: 130,
+                            width:
+                                double
+                                    .infinity, // Match the width of "Modo Oscuro" button
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: accentColor,
@@ -200,9 +180,41 @@ class AccountPage extends StatelessWidget {
                                   vertical: 14.0,
                                 ),
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                // Add functionality for changing password here
+                              },
                               child: const Text(
-                                'Cerrar Sesión',
+                                'Contraseña',
+                                style: TextStyle(
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 16.0,
+                          ), // Add spacing between buttons
+                          SizedBox(
+                            width:
+                                double
+                                    .infinity, // Match the width of "Modo Oscuro" button
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: accentColor,
+                                foregroundColor: Colors.black,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 14.0,
+                                ),
+                              ),
+                              onPressed: () {
+                                // Add functionality for changing email here
+                              },
+                              child: const Text(
+                                'Correo',
                                 style: TextStyle(
                                   fontSize: 16.0,
                                   fontWeight: FontWeight.bold,
@@ -212,7 +224,6 @@ class AccountPage extends StatelessWidget {
                           ),
                         ],
                       ),
-                      SizedBox(height: 29),
                     ],
                   ),
                 ),
@@ -242,7 +253,12 @@ class AccountPage extends StatelessWidget {
                 size: 45,
                 color: accentColor,
               ), // Move "Cuenta" to the middle
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const AccountPage()),
+                );
+              },
             ),
             IconButton(
               icon: const Icon(
@@ -250,12 +266,7 @@ class AccountPage extends StatelessWidget {
                 size: 45,
                 color: accentColor,
               ), // Move "Configuración" to the right
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const SettingsPage()),
-                );
-              },
+              onPressed: () {},
             ),
           ],
         ),
