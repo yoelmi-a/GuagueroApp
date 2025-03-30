@@ -99,7 +99,7 @@ class SettingsPage extends StatelessWidget {
             fit: StackFit.expand,
             children: [
               Positioned(
-                top: 280.0, // Match the top position from AccountPage
+                top: 280.0,
                 left: 20.0,
                 right: 20.0,
                 child: Container(
@@ -119,9 +119,7 @@ class SettingsPage extends StatelessWidget {
                       ),
                     ],
                   ),
-                  constraints: const BoxConstraints(
-                    minHeight: 150,
-                  ), // Match the height constraint
+                  constraints: const BoxConstraints(minHeight: 150),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -137,7 +135,7 @@ class SettingsPage extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(vertical: 14.0),
                           ),
                           onPressed: () {
-                            // Add functionality for dark mode toggle here
+                            // Funcionalidad para el modo oscuro
                           },
                           child: const Text(
                             'Modo Oscuro',
@@ -149,7 +147,7 @@ class SettingsPage extends StatelessWidget {
                         ),
                       ),
                       const Divider(
-                        height: 50.0, // Increase height to add more space
+                        height: 50.0,
                         thickness: 1.5,
                         color: Colors.black,
                       ),
@@ -166,9 +164,7 @@ class SettingsPage extends StatelessWidget {
                           ),
                           const SizedBox(height: 16.0),
                           SizedBox(
-                            width:
-                                double
-                                    .infinity, // Match the width of "Modo Oscuro" button
+                            width: double.infinity,
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: accentColor,
@@ -181,7 +177,229 @@ class SettingsPage extends StatelessWidget {
                                 ),
                               ),
                               onPressed: () {
-                                // Add functionality for changing password here
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    TextEditingController
+                                    currentPasswordController =
+                                        TextEditingController();
+                                    TextEditingController
+                                    newPasswordController =
+                                        TextEditingController();
+                                    TextEditingController
+                                    confirmPasswordController =
+                                        TextEditingController();
+                                    bool obscureCurrent = true;
+                                    bool obscureNew = true;
+                                    bool obscureConfirm = true;
+                                    return StatefulBuilder(
+                                      builder: (context, setState) {
+                                        return AlertDialog(
+                                          title: const Text(
+                                            'Cambiar Contraseña',
+                                          ),
+                                          content: Container(
+                                            width:
+                                                350, // Adjust the width of the dialog
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                TextField(
+                                                  controller:
+                                                      currentPasswordController,
+                                                  obscureText: obscureCurrent,
+                                                  style: const TextStyle(
+                                                    color: Colors.black,
+                                                  ),
+                                                  decoration: InputDecoration(
+                                                    labelText:
+                                                        'Contraseña Actual',
+                                                    labelStyle: const TextStyle(
+                                                      color: Colors.black,
+                                                    ),
+                                                    suffixIcon: IconButton(
+                                                      icon: Icon(
+                                                        obscureCurrent
+                                                            ? Icons
+                                                                .visibility_off
+                                                            : Icons.visibility,
+                                                        color: Colors.grey,
+                                                      ),
+                                                      onPressed: () {
+                                                        setState(() {
+                                                          obscureCurrent =
+                                                              !obscureCurrent;
+                                                        });
+                                                      },
+                                                    ),
+                                                  ),
+                                                ),
+                                                const SizedBox(height: 8.0),
+                                                TextField(
+                                                  controller:
+                                                      newPasswordController,
+                                                  obscureText: obscureNew,
+                                                  style: const TextStyle(
+                                                    color: Colors.black,
+                                                  ),
+                                                  decoration: InputDecoration(
+                                                    labelText:
+                                                        'Nueva Contraseña',
+                                                    labelStyle: const TextStyle(
+                                                      color: Colors.black,
+                                                    ),
+                                                    suffixIcon: IconButton(
+                                                      icon: Icon(
+                                                        obscureNew
+                                                            ? Icons
+                                                                .visibility_off
+                                                            : Icons.visibility,
+                                                        color: Colors.grey,
+                                                      ),
+                                                      onPressed: () {
+                                                        setState(() {
+                                                          obscureNew =
+                                                              !obscureNew;
+                                                        });
+                                                      },
+                                                    ),
+                                                  ),
+                                                ),
+                                                const SizedBox(height: 8.0),
+                                                TextField(
+                                                  controller:
+                                                      confirmPasswordController,
+                                                  obscureText: obscureConfirm,
+                                                  style: const TextStyle(
+                                                    color: Colors.black,
+                                                  ),
+                                                  decoration: InputDecoration(
+                                                    labelText:
+                                                        'Confirmar Contraseña',
+                                                    labelStyle: const TextStyle(
+                                                      color: Colors.black,
+                                                    ),
+                                                    suffixIcon: IconButton(
+                                                      icon: Icon(
+                                                        obscureConfirm
+                                                            ? Icons
+                                                                .visibility_off
+                                                            : Icons.visibility,
+                                                        color: Colors.grey,
+                                                      ),
+                                                      onPressed: () {
+                                                        setState(() {
+                                                          obscureConfirm =
+                                                              !obscureConfirm;
+                                                        });
+                                                      },
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          actionsAlignment:
+                                              MainAxisAlignment.center,
+                                          actions: [
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                ElevatedButton(
+                                                  style: ElevatedButton.styleFrom(
+                                                    backgroundColor:
+                                                        accentColor,
+                                                    foregroundColor:
+                                                        Colors.black,
+                                                    shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                            8.0,
+                                                          ),
+                                                    ),
+                                                    padding:
+                                                        const EdgeInsets.symmetric(
+                                                          vertical: 14.0,
+                                                        ),
+                                                  ),
+                                                  onPressed: () {
+                                                    String currentPassword =
+                                                        currentPasswordController
+                                                            .text;
+                                                    String newPassword =
+                                                        newPasswordController
+                                                            .text;
+                                                    String confirmPassword =
+                                                        confirmPasswordController
+                                                            .text;
+                                                    // Agrega aquí la lógica para guardar la nueva contraseña,
+                                                    // validando que newPassword y confirmPassword coincidan
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  child: const Text(
+                                                    '  Guarda Nueva Contraseña  ',
+                                                    style: TextStyle(
+                                                      fontSize: 16.0,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ),
+                                                const SizedBox(height: 8.0),
+                                                TextButton(
+                                                  onPressed: () {
+                                                    showDialog(
+                                                      context: context,
+                                                      builder: (
+                                                        BuildContext context,
+                                                      ) {
+                                                        return AlertDialog(
+                                                          title: const Text(
+                                                            'Recuperación de contraseña',
+                                                          ),
+                                                          content: const Text(
+                                                            'Te enviamos un correo para restablecer tu contraseña.',
+                                                          ),
+                                                          actions: [
+                                                            TextButton(
+                                                              onPressed: () {
+                                                                Navigator.of(
+                                                                  context,
+                                                                ).pop();
+                                                              },
+                                                              child: const Text(
+                                                                'Aceptar',
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        );
+                                                      },
+                                                    );
+                                                  },
+                                                  child: const Text(
+                                                    '¿Olvidaste tu contraseña?',
+                                                    style: TextStyle(
+                                                      color: (Color.fromARGB(
+                                                        255,
+                                                        255,
+                                                        179,
+                                                        0,
+                                                      )),
+                                                      fontSize: 14.0,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  },
+                                );
                               },
                               child: const Text(
                                 'Contraseña',
@@ -192,13 +410,9 @@ class SettingsPage extends StatelessWidget {
                               ),
                             ),
                           ),
-                          const SizedBox(
-                            height: 16.0,
-                          ), // Add spacing between buttons
+                          const SizedBox(height: 16.0),
                           SizedBox(
-                            width:
-                                double
-                                    .infinity, // Match the width of "Modo Oscuro" button
+                            width: double.infinity,
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: accentColor,
@@ -211,7 +425,211 @@ class SettingsPage extends StatelessWidget {
                                 ),
                               ),
                               onPressed: () {
-                                // Add functionality for changing email here
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    TextEditingController
+                                    currentEmailController =
+                                        TextEditingController();
+                                    TextEditingController newEmailController =
+                                        TextEditingController();
+                                    TextEditingController
+                                    confirmEmailController =
+                                        TextEditingController();
+                                    bool obscureCurrentEmail = true;
+                                    bool obscureNewEmail = true;
+                                    bool obscureConfirmEmail = true;
+                                    return StatefulBuilder(
+                                      builder: (context, setState) {
+                                        return AlertDialog(
+                                          title: const Text('Cambiar Correo'),
+                                          content: Container(
+                                            width:
+                                                350, // Adjust the width of the dialog
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                TextField(
+                                                  controller:
+                                                      currentEmailController,
+                                                  obscureText:
+                                                      obscureCurrentEmail,
+                                                  style: const TextStyle(
+                                                    color: Colors.black,
+                                                  ),
+                                                  decoration: InputDecoration(
+                                                    labelText: 'Correo Actual',
+                                                    labelStyle: const TextStyle(
+                                                      color: Colors.black,
+                                                    ),
+                                                    suffixIcon: IconButton(
+                                                      icon: Icon(
+                                                        obscureCurrentEmail
+                                                            ? Icons
+                                                                .visibility_off
+                                                            : Icons.visibility,
+                                                        color: Colors.grey,
+                                                      ),
+                                                      onPressed: () {
+                                                        setState(() {
+                                                          obscureCurrentEmail =
+                                                              !obscureCurrentEmail;
+                                                        });
+                                                      },
+                                                    ),
+                                                  ),
+                                                ),
+                                                const SizedBox(height: 8.0),
+                                                TextField(
+                                                  controller:
+                                                      newEmailController,
+                                                  obscureText: obscureNewEmail,
+                                                  style: const TextStyle(
+                                                    color: Colors.black,
+                                                  ),
+                                                  decoration: InputDecoration(
+                                                    labelText: 'Nuevo Correo',
+                                                    labelStyle: const TextStyle(
+                                                      color: Colors.black,
+                                                    ),
+                                                    suffixIcon: IconButton(
+                                                      icon: Icon(
+                                                        obscureNewEmail
+                                                            ? Icons
+                                                                .visibility_off
+                                                            : Icons.visibility,
+                                                        color: Colors.grey,
+                                                      ),
+                                                      onPressed: () {
+                                                        setState(() {
+                                                          obscureNewEmail =
+                                                              !obscureNewEmail;
+                                                        });
+                                                      },
+                                                    ),
+                                                  ),
+                                                ),
+                                                const SizedBox(height: 8.0),
+                                                TextField(
+                                                  controller:
+                                                      confirmEmailController,
+                                                  obscureText:
+                                                      obscureConfirmEmail,
+                                                  style: const TextStyle(
+                                                    color: Colors.black,
+                                                  ),
+                                                  decoration: InputDecoration(
+                                                    labelText:
+                                                        'Confirmar Correo',
+                                                    labelStyle: const TextStyle(
+                                                      color: Colors.black,
+                                                    ),
+                                                    suffixIcon: IconButton(
+                                                      icon: Icon(
+                                                        obscureConfirmEmail
+                                                            ? Icons
+                                                                .visibility_off
+                                                            : Icons.visibility,
+                                                        color: Colors.grey,
+                                                      ),
+                                                      onPressed: () {
+                                                        setState(() {
+                                                          obscureConfirmEmail =
+                                                              !obscureConfirmEmail;
+                                                        });
+                                                      },
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          actionsAlignment:
+                                              MainAxisAlignment.center,
+                                          actions: [
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                ElevatedButton(
+                                                  style: ElevatedButton.styleFrom(
+                                                    backgroundColor:
+                                                        accentColor,
+                                                    foregroundColor:
+                                                        Colors.black,
+                                                    shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                            8.0,
+                                                          ),
+                                                    ),
+                                                    padding:
+                                                        const EdgeInsets.symmetric(
+                                                          vertical: 14.0,
+                                                        ),
+                                                  ),
+                                                  onPressed: () {
+                                                    // Logic to save the new email
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  child: const Text(
+                                                    '  Guardar Nuevo Correo  ',
+                                                    style: TextStyle(
+                                                      fontSize: 16.0,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ),
+                                                const SizedBox(height: 8.0),
+                                                TextButton(
+                                                  onPressed: () {
+                                                    showDialog(
+                                                      context: context,
+                                                      builder: (
+                                                        BuildContext context,
+                                                      ) {
+                                                        return AlertDialog(
+                                                          title: const Text(
+                                                            'Recuperación de correo',
+                                                          ),
+                                                          content: const Text(
+                                                            'Te enviamos instrucciones para recuperar tu correo.',
+                                                          ),
+                                                          actions: [
+                                                            TextButton(
+                                                              onPressed: () {
+                                                                Navigator.of(
+                                                                  context,
+                                                                ).pop();
+                                                              },
+                                                              child: const Text(
+                                                                'Aceptar',
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        );
+                                                      },
+                                                    );
+                                                  },
+                                                  child: const Text(
+                                                    '¿Problemas con tu correo?',
+                                                    style: TextStyle(
+                                                      color: accentColor,
+                                                      fontSize: 14.0,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  },
+                                );
                               },
                               child: const Text(
                                 'Correo',
@@ -248,11 +666,7 @@ class SettingsPage extends StatelessWidget {
               },
             ),
             IconButton(
-              icon: const Icon(
-                Icons.person,
-                size: 45,
-                color: accentColor,
-              ), // Move "Cuenta" to the middle
+              icon: const Icon(Icons.person, size: 45, color: accentColor),
               onPressed: () {
                 Navigator.push(
                   context,
@@ -261,11 +675,7 @@ class SettingsPage extends StatelessWidget {
               },
             ),
             IconButton(
-              icon: const Icon(
-                Icons.settings,
-                size: 45,
-                color: accentColor,
-              ), // Move "Configuración" to the right
+              icon: const Icon(Icons.settings, size: 45, color: accentColor),
               onPressed: () {},
             ),
           ],

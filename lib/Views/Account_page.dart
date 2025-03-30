@@ -108,8 +108,9 @@ class AccountPage extends StatelessWidget {
             children: [
               Positioned(
                 top: 280.0,
-                left: 20.0,
-                right: 20.0,
+                left: 30.0,
+                right: 30.0,
+                bottom: 20.0,
                 child: Container(
                   padding: const EdgeInsets.all(24.0),
                   decoration: BoxDecoration(
@@ -128,92 +129,103 @@ class AccountPage extends StatelessWidget {
                     ],
                   ),
                   constraints: const BoxConstraints(minHeight: 150),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 25.0),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Icon(Icons.phone, color: accentColor, size: 30),
-                          const SizedBox(width: 12.0),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
-                              Text(
-                                'TELÉFONO',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18,
+                  // Se envuelve la columna en un SingleChildScrollView para evitar desbordamientos.
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: 25.0),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Icon(Icons.phone, color: accentColor, size: 30),
+                            const SizedBox(width: 12.0),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  'TELÉFONO',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18,
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                '809-000-2288',
-                                style: TextStyle(fontSize: 16),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      const Divider(
-                        height: 32.0,
-                        thickness: 1.5, // Slightly increase thickness
-                        color: Colors.black, // Change color to black
-                      ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Icon(Icons.email, color: accentColor, size: 30),
-                          const SizedBox(width: 12.0),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
-                              Text(
-                                'CORREO',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18,
+                                Text(
+                                  '809-000-2288',
+                                  style: TextStyle(fontSize: 16),
                                 ),
-                              ),
-                              Text(
-                                'Ejemplo@gmail.com',
-                                style: TextStyle(fontSize: 16),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 24.0),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            width: 130,
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: accentColor,
-                                foregroundColor: Colors.black,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8.0),
+                              ],
+                            ),
+                          ],
+                        ),
+                        const Divider(
+                          height: 32.0,
+                          thickness: 1.5,
+                          color: Colors.black,
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Icon(Icons.email, color: accentColor, size: 30),
+                            const SizedBox(width: 12.0),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  'CORREO',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18,
+                                  ),
                                 ),
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 14.0,
+                                Text(
+                                  'Ejemplo@gmail.com',
+                                  style: TextStyle(fontSize: 16),
                                 ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 24.0),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const SizedBox(height: 24.0),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 16.0,
                               ),
-                              onPressed: () {},
-                              child: const Text(
-                                'Cerrar Sesión',
-                                style: TextStyle(
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.bold,
+                              child: SizedBox(
+                                width: double.infinity,
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: accentColor,
+                                    foregroundColor: Colors.black,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 14.0,
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    // Funcionalidad para cerrar sesión
+                                  },
+                                  child: const Text(
+                                    'Cerrar Sesión',
+                                    style: TextStyle(
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 29),
-                    ],
+                            const SizedBox(height: 29),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -237,19 +249,11 @@ class AccountPage extends StatelessWidget {
               },
             ),
             IconButton(
-              icon: const Icon(
-                Icons.person,
-                size: 45,
-                color: accentColor,
-              ), // Move "Cuenta" to the middle
+              icon: const Icon(Icons.person, size: 45, color: accentColor),
               onPressed: () {},
             ),
             IconButton(
-              icon: const Icon(
-                Icons.settings,
-                size: 45,
-                color: accentColor,
-              ), // Move "Configuración" to the right
+              icon: const Icon(Icons.settings, size: 45, color: accentColor),
               onPressed: () {
                 Navigator.push(
                   context,
