@@ -3,6 +3,7 @@ import 'package:guaguero/Views/map_page.dart';
 
 class Routes {
   static const String mapPage = '/mapPage';
+  static const String registerPager = '/registerPager';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     

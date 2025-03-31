@@ -7,6 +7,7 @@ class AppTheme {
 
   static ThemeData get lightTheme {
     return ThemeData(
+      fontFamily: 'Poppins',
       primaryColor: primaryColor,
       secondaryHeaderColor: secondaryColor,
       scaffoldBackgroundColor: scaffoldColor,
