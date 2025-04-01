@@ -17,7 +17,7 @@ class MainApp extends StatelessWidget {
         title: 'Map Page',
         theme: AppTheme.lightTheme,
         onGenerateRoute: Routes.generateRoute,
-        initialRoute: Routes.mapPage,
+        initialRoute: Routes.loginpage,
       ),
     );
   }
