@@ -195,108 +195,136 @@ class SettingsPage extends StatelessWidget {
                                     return StatefulBuilder(
                                       builder: (context, setState) {
                                         return AlertDialog(
+                                          insetPadding: const EdgeInsets.symmetric(
+                                            horizontal: 40.0,
+                                          ), // Add padding to avoid touching edges
                                           title: const Text(
                                             'Cambiar Contraseña',
                                           ),
                                           content: Container(
                                             width:
-                                                350, // Adjust the width of the dialog
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                TextField(
-                                                  controller:
-                                                      currentPasswordController,
-                                                  obscureText: obscureCurrent,
-                                                  style: const TextStyle(
-                                                    color: Colors.black,
-                                                  ),
-                                                  decoration: InputDecoration(
-                                                    labelText:
-                                                        'Contraseña Actual',
-                                                    labelStyle: const TextStyle(
-                                                      color: Colors.black,
-                                                    ),
-                                                    suffixIcon: IconButton(
-                                                      icon: Icon(
-                                                        obscureCurrent
-                                                            ? Icons
-                                                                .visibility_off
-                                                            : Icons.visibility,
-                                                        color: Colors.grey,
-                                                      ),
-                                                      onPressed: () {
-                                                        setState(() {
-                                                          obscureCurrent =
-                                                              !obscureCurrent;
-                                                        });
-                                                      },
-                                                    ),
-                                                  ),
+                                                MediaQuery.of(
+                                                  context,
+                                                ).size.width *
+                                                0.7, // Set width to 70% of the screen
+                                            child: SingleChildScrollView(
+                                              child: Padding(
+                                                padding: EdgeInsets.only(
+                                                  bottom:
+                                                      MediaQuery.of(
+                                                        context,
+                                                      ).viewInsets.bottom,
                                                 ),
-                                                const SizedBox(height: 8.0),
-                                                TextField(
-                                                  controller:
-                                                      newPasswordController,
-                                                  obscureText: obscureNew,
-                                                  style: const TextStyle(
-                                                    color: Colors.black,
-                                                  ),
-                                                  decoration: InputDecoration(
-                                                    labelText:
-                                                        'Nueva Contraseña',
-                                                    labelStyle: const TextStyle(
-                                                      color: Colors.black,
-                                                    ),
-                                                    suffixIcon: IconButton(
-                                                      icon: Icon(
-                                                        obscureNew
-                                                            ? Icons
-                                                                .visibility_off
-                                                            : Icons.visibility,
-                                                        color: Colors.grey,
+                                                child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  children: [
+                                                    TextField(
+                                                      controller:
+                                                          currentPasswordController,
+                                                      obscureText:
+                                                          obscureCurrent,
+                                                      style: const TextStyle(
+                                                        color: Colors.black,
                                                       ),
-                                                      onPressed: () {
-                                                        setState(() {
-                                                          obscureNew =
-                                                              !obscureNew;
-                                                        });
-                                                      },
-                                                    ),
-                                                  ),
-                                                ),
-                                                const SizedBox(height: 8.0),
-                                                TextField(
-                                                  controller:
-                                                      confirmPasswordController,
-                                                  obscureText: obscureConfirm,
-                                                  style: const TextStyle(
-                                                    color: Colors.black,
-                                                  ),
-                                                  decoration: InputDecoration(
-                                                    labelText:
-                                                        'Confirmar Contraseña',
-                                                    labelStyle: const TextStyle(
-                                                      color: Colors.black,
-                                                    ),
-                                                    suffixIcon: IconButton(
-                                                      icon: Icon(
-                                                        obscureConfirm
-                                                            ? Icons
-                                                                .visibility_off
-                                                            : Icons.visibility,
-                                                        color: Colors.grey,
+                                                      decoration: InputDecoration(
+                                                        labelText:
+                                                            'Contraseña Actual',
+                                                        labelStyle:
+                                                            const TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                            ),
+                                                        suffixIcon: IconButton(
+                                                          icon: Icon(
+                                                            obscureCurrent
+                                                                ? Icons
+                                                                    .visibility_off
+                                                                : Icons
+                                                                    .visibility,
+                                                            color: Colors.grey,
+                                                          ),
+                                                          onPressed: () {
+                                                            setState(() {
+                                                              obscureCurrent =
+                                                                  !obscureCurrent;
+                                                            });
+                                                          },
+                                                        ),
                                                       ),
-                                                      onPressed: () {
-                                                        setState(() {
-                                                          obscureConfirm =
-                                                              !obscureConfirm;
-                                                        });
-                                                      },
                                                     ),
-                                                  ),
+                                                    const SizedBox(height: 8.0),
+                                                    TextField(
+                                                      controller:
+                                                          newPasswordController,
+                                                      obscureText: obscureNew,
+                                                      style: const TextStyle(
+                                                        color: Colors.black,
+                                                      ),
+                                                      decoration: InputDecoration(
+                                                        labelText:
+                                                            'Nueva Contraseña',
+                                                        labelStyle:
+                                                            const TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                            ),
+                                                        suffixIcon: IconButton(
+                                                          icon: Icon(
+                                                            obscureNew
+                                                                ? Icons
+                                                                    .visibility_off
+                                                                : Icons
+                                                                    .visibility,
+                                                            color: Colors.grey,
+                                                          ),
+                                                          onPressed: () {
+                                                            setState(() {
+                                                              obscureNew =
+                                                                  !obscureNew;
+                                                            });
+                                                          },
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    const SizedBox(height: 8.0),
+                                                    TextField(
+                                                      controller:
+                                                          confirmPasswordController,
+                                                      obscureText:
+                                                          obscureConfirm,
+                                                      style: const TextStyle(
+                                                        color: Colors.black,
+                                                      ),
+                                                      decoration: InputDecoration(
+                                                        labelText:
+                                                            'Confirmar Contraseña',
+                                                        labelStyle:
+                                                            const TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                            ),
+                                                        suffixIcon: IconButton(
+                                                          icon: Icon(
+                                                            obscureConfirm
+                                                                ? Icons
+                                                                    .visibility_off
+                                                                : Icons
+                                                                    .visibility,
+                                                            color: Colors.grey,
+                                                          ),
+                                                          onPressed: () {
+                                                            setState(() {
+                                                              obscureConfirm =
+                                                                  !obscureConfirm;
+                                                            });
+                                                          },
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
-                                              ],
+                                              ),
                                             ),
                                           ),
                                           actionsAlignment:
@@ -309,7 +337,7 @@ class SettingsPage extends StatelessWidget {
                                                 ElevatedButton(
                                                   style: ElevatedButton.styleFrom(
                                                     backgroundColor:
-                                                        accentColor,
+                                                        const Color(0xFFFFC400),
                                                     foregroundColor:
                                                         Colors.black,
                                                     shape: RoundedRectangleBorder(
@@ -333,8 +361,7 @@ class SettingsPage extends StatelessWidget {
                                                     String confirmPassword =
                                                         confirmPasswordController
                                                             .text;
-                                                    // Agrega aquí la lógica para guardar la nueva contraseña,
-                                                    // validando que newPassword y confirmPassword coincidan
+                                                    // Logic to save the new password
                                                     Navigator.of(context).pop();
                                                   },
                                                   child: const Text(
@@ -380,12 +407,7 @@ class SettingsPage extends StatelessWidget {
                                                   child: const Text(
                                                     '¿Olvidaste tu contraseña?',
                                                     style: TextStyle(
-                                                      color: (Color.fromARGB(
-                                                        255,
-                                                        255,
-                                                        179,
-                                                        0,
-                                                      )),
+                                                      color: Color(0xFFFFC400),
                                                       fontSize: 14.0,
                                                       fontWeight:
                                                           FontWeight.bold,
@@ -442,106 +464,135 @@ class SettingsPage extends StatelessWidget {
                                     return StatefulBuilder(
                                       builder: (context, setState) {
                                         return AlertDialog(
+                                          insetPadding: const EdgeInsets.symmetric(
+                                            horizontal: 40.0,
+                                          ), // Add padding to avoid touching edges
                                           title: const Text('Cambiar Correo'),
                                           content: Container(
                                             width:
-                                                350, // Adjust the width of the dialog
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                TextField(
-                                                  controller:
-                                                      currentEmailController,
-                                                  obscureText:
-                                                      obscureCurrentEmail,
-                                                  style: const TextStyle(
-                                                    color: Colors.black,
-                                                  ),
-                                                  decoration: InputDecoration(
-                                                    labelText: 'Correo Actual',
-                                                    labelStyle: const TextStyle(
-                                                      color: Colors.black,
-                                                    ),
-                                                    suffixIcon: IconButton(
-                                                      icon: Icon(
-                                                        obscureCurrentEmail
-                                                            ? Icons
-                                                                .visibility_off
-                                                            : Icons.visibility,
-                                                        color: Colors.grey,
-                                                      ),
-                                                      onPressed: () {
-                                                        setState(() {
-                                                          obscureCurrentEmail =
-                                                              !obscureCurrentEmail;
-                                                        });
-                                                      },
-                                                    ),
-                                                  ),
+                                                MediaQuery.of(
+                                                  context,
+                                                ).size.width *
+                                                0.7, // Set width to 70% of the screen
+                                            child: SingleChildScrollView(
+                                              child: Padding(
+                                                padding: EdgeInsets.only(
+                                                  bottom:
+                                                      MediaQuery.of(
+                                                        context,
+                                                      ).viewInsets.bottom,
                                                 ),
-                                                const SizedBox(height: 8.0),
-                                                TextField(
-                                                  controller:
-                                                      newEmailController,
-                                                  obscureText: obscureNewEmail,
-                                                  style: const TextStyle(
-                                                    color: Colors.black,
-                                                  ),
-                                                  decoration: InputDecoration(
-                                                    labelText: 'Nuevo Correo',
-                                                    labelStyle: const TextStyle(
-                                                      color: Colors.black,
-                                                    ),
-                                                    suffixIcon: IconButton(
-                                                      icon: Icon(
-                                                        obscureNewEmail
-                                                            ? Icons
-                                                                .visibility_off
-                                                            : Icons.visibility,
-                                                        color: Colors.grey,
+                                                child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  children: [
+                                                    TextField(
+                                                      controller:
+                                                          currentEmailController,
+                                                      obscureText:
+                                                          obscureCurrentEmail,
+                                                      style: const TextStyle(
+                                                        color: Colors.black,
                                                       ),
-                                                      onPressed: () {
-                                                        setState(() {
-                                                          obscureNewEmail =
-                                                              !obscureNewEmail;
-                                                        });
-                                                      },
-                                                    ),
-                                                  ),
-                                                ),
-                                                const SizedBox(height: 8.0),
-                                                TextField(
-                                                  controller:
-                                                      confirmEmailController,
-                                                  obscureText:
-                                                      obscureConfirmEmail,
-                                                  style: const TextStyle(
-                                                    color: Colors.black,
-                                                  ),
-                                                  decoration: InputDecoration(
-                                                    labelText:
-                                                        'Confirmar Correo',
-                                                    labelStyle: const TextStyle(
-                                                      color: Colors.black,
-                                                    ),
-                                                    suffixIcon: IconButton(
-                                                      icon: Icon(
-                                                        obscureConfirmEmail
-                                                            ? Icons
-                                                                .visibility_off
-                                                            : Icons.visibility,
-                                                        color: Colors.grey,
+                                                      decoration: InputDecoration(
+                                                        labelText:
+                                                            'Correo Actual',
+                                                        labelStyle:
+                                                            const TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                            ),
+                                                        suffixIcon: IconButton(
+                                                          icon: Icon(
+                                                            obscureCurrentEmail
+                                                                ? Icons
+                                                                    .visibility_off
+                                                                : Icons
+                                                                    .visibility,
+                                                            color: Colors.grey,
+                                                          ),
+                                                          onPressed: () {
+                                                            setState(() {
+                                                              obscureCurrentEmail =
+                                                                  !obscureCurrentEmail;
+                                                            });
+                                                          },
+                                                        ),
                                                       ),
-                                                      onPressed: () {
-                                                        setState(() {
-                                                          obscureConfirmEmail =
-                                                              !obscureConfirmEmail;
-                                                        });
-                                                      },
                                                     ),
-                                                  ),
+                                                    const SizedBox(height: 8.0),
+                                                    TextField(
+                                                      controller:
+                                                          newEmailController,
+                                                      obscureText:
+                                                          obscureNewEmail,
+                                                      style: const TextStyle(
+                                                        color: Colors.black,
+                                                      ),
+                                                      decoration: InputDecoration(
+                                                        labelText:
+                                                            'Nuevo Correo',
+                                                        labelStyle:
+                                                            const TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                            ),
+                                                        suffixIcon: IconButton(
+                                                          icon: Icon(
+                                                            obscureNewEmail
+                                                                ? Icons
+                                                                    .visibility_off
+                                                                : Icons
+                                                                    .visibility,
+                                                            color: Colors.grey,
+                                                          ),
+                                                          onPressed: () {
+                                                            setState(() {
+                                                              obscureNewEmail =
+                                                                  !obscureNewEmail;
+                                                            });
+                                                          },
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    const SizedBox(height: 8.0),
+                                                    TextField(
+                                                      controller:
+                                                          confirmEmailController,
+                                                      obscureText:
+                                                          obscureConfirmEmail,
+                                                      style: const TextStyle(
+                                                        color: Colors.black,
+                                                      ),
+                                                      decoration: InputDecoration(
+                                                        labelText:
+                                                            'Confirmar Correo',
+                                                        labelStyle:
+                                                            const TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                            ),
+                                                        suffixIcon: IconButton(
+                                                          icon: Icon(
+                                                            obscureConfirmEmail
+                                                                ? Icons
+                                                                    .visibility_off
+                                                                : Icons
+                                                                    .visibility,
+                                                            color: Colors.grey,
+                                                          ),
+                                                          onPressed: () {
+                                                            setState(() {
+                                                              obscureConfirmEmail =
+                                                                  !obscureConfirmEmail;
+                                                            });
+                                                          },
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
-                                              ],
+                                              ),
                                             ),
                                           ),
                                           actionsAlignment:
@@ -554,7 +605,7 @@ class SettingsPage extends StatelessWidget {
                                                 ElevatedButton(
                                                   style: ElevatedButton.styleFrom(
                                                     backgroundColor:
-                                                        accentColor,
+                                                        const Color(0xFFFFC400),
                                                     foregroundColor:
                                                         Colors.black,
                                                     shape: RoundedRectangleBorder(
@@ -569,6 +620,14 @@ class SettingsPage extends StatelessWidget {
                                                         ),
                                                   ),
                                                   onPressed: () {
+                                                    String currentEmail =
+                                                        currentEmailController
+                                                            .text;
+                                                    String newEmail =
+                                                        newEmailController.text;
+                                                    String confirmEmail =
+                                                        confirmEmailController
+                                                            .text;
                                                     // Logic to save the new email
                                                     Navigator.of(context).pop();
                                                   },
@@ -615,7 +674,7 @@ class SettingsPage extends StatelessWidget {
                                                   child: const Text(
                                                     '¿Problemas con tu correo?',
                                                     style: TextStyle(
-                                                      color: accentColor,
+                                                      color: Color(0xFFFFC400),
                                                       fontSize: 14.0,
                                                       fontWeight:
                                                           FontWeight.bold,
