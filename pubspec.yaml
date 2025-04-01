@@ -13,6 +13,7 @@ dependencies:
   latlong2: ^0.9.1
   geolocator: ^13.0.3
   provider: ^6.1.4
+  font_awesome_flutter: ^10.8.0
 
 dev_dependencies:
   flutter_test:
@@ -21,3 +22,17 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  fonts:
+    - family: Poppins
+      fonts:
+        - asset: assets\fonts\Poppins-Black.ttf
+        - asset: assets\fonts\Poppins-BlackItalic.ttf
+        - asset: assets\fonts\Poppins-Bold.ttf
+        - asset: assets\fonts\Poppins-BoldItalic.ttf
+        - asset: assets\fonts\Poppins-ExtraBold.ttf
+        - asset: assets\fonts\Poppins-ExtraBoldItalic.ttf
+        - asset: assets\fonts\Poppins-ExtraLight.ttf
+        - asset: assets\fonts\Poppins-ExtraLightItalic.ttf
+        - asset: assets\fonts\Poppins-Italic.ttf
+        - asset: assets\fonts\Poppins-Light.ttf
+        - asset: assets\fonts\Poppins-LightItalic.ttf
