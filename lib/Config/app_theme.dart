@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AppTheme {
-  static const Color primaryColor = Color(0x001D3D);
-  static const Color secondaryColor = Color(0xFFD60A);
+  static const Color primaryColor = Color.fromARGB(242, 0, 29, 61);
+  static const Color secondaryColor = Color.fromARGB(255, 255, 214, 10);
   static const Color scaffoldColor = Colors.white;
 
   static ThemeData get lightTheme {
