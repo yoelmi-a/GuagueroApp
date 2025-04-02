@@ -1,69 +1,29 @@
 import "package:flutter/material.dart";
 import 'package:flutter_map/flutter_map.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:guaguero/ViewModels/map_page_vm.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
 
-class MapPage extends StatefulWidget{
+class MapPage extends StatelessWidget{
   const MapPage({super.key});
-
-  @override
-  State<MapPage> createState() => _MapPageState();
-}
-
-class _MapPageState extends State<MapPage> {
-  LatLng _currentPosition = LatLng(0, 0);
-  bool _loading = true;
-
-  @override
-  void initState(){
-    super.initState();
-    _getPosition();
-  }
-
-  Future<void> _getPosition() async {
-    bool serviceEnabled;
-    LocationPermission permission;
-
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      return Future.error('Los Servicios de ubicación están desactivados.');
-    }
-
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        return Future.error('Los servicios de ubicación están denegados.');
-      }
-    }
-    if (permission == LocationPermission.deniedForever) {
-      return Future.error(
-          'Los servicios de ubicación están denegados permanentemente, no podemos solicitar permisos.');
-    }
-
-    Position position = await Geolocator.getCurrentPosition();
-    setState(() {
-      _currentPosition = LatLng(position.latitude, position.longitude);
-      _loading = false;
-    });
-  }
 
   @override
   Widget build(BuildContext context){
     final viewModel = Provider.of<MapPageViewModel>(context);
     DraggableScrollableController controller = DraggableScrollableController();
+    LatLng position = viewModel.currentPosition != null
+        ? LatLng(viewModel.currentPosition!.latitude, viewModel.currentPosition!.longitude)
+        : LatLng(0, 0);
 
     return Scaffold(
-      body: _loading 
+      body: viewModel.loading 
           ? const Center(child: CircularProgressIndicator())
           : Stack(
         children: [
           FlutterMap(
             options: MapOptions(
-              initialCenter: _currentPosition,
+              initialCenter: position,
               initialZoom: 13.0
             ),
             children: [
@@ -74,7 +34,7 @@ class _MapPageState extends State<MapPage> {
               MarkerLayer(
                 markers: [
                   Marker(
-                    point: _currentPosition,
+                    point: position,
                     width: 40,
                     height: 40,
                     child: const Icon(
@@ -183,50 +143,26 @@ class _MapPageState extends State<MapPage> {
                           const SizedBox(height: 8),
                           Padding(
                             padding: const EdgeInsets.only(left: 20, right: 20, top: 15),
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 20),
-                              decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 255, 214, 10),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: DropdownButton<String>(
-                                isExpanded: true,
-                                underline: SizedBox(),
-                                value: viewModel.empresa,
-                                items: ['Sichoem', 'Aptra', 'Caribe Tours']
-                                  .map((String empresa) => DropdownMenuItem<String>(
-                                    value: empresa,
-                                    child: Text(empresa, 
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 20,
-                                        color: Color.fromARGB(255, 0, 29, 61),
-                                      ),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                                    decoration: BoxDecoration(
+                                      color: Color.fromARGB(255, 255, 214, 10),
+                                      borderRadius: BorderRadius.circular(10),
                                     ),
-                                  )).toList(),
-                                onChanged: (String? newEmpresa) {
-                                  if (newEmpresa != null) {
-                                    viewModel.setEmpresa(newEmpresa);
-                                  }
-                                },
-                                hint: const Text("Seleccione la empresa",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    color: Color.fromARGB(255, 0, 29, 61),
-                                    fontSize: 20,
+                                    child: Text(
+                                      'Sichoem',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          color: Color.fromARGB(255, 0, 29, 61),
+                                          fontSize: 20,
+                                        ),
+                                    ),
                                   ),
                                 ),
-                                icon: const FaIcon(FontAwesomeIcons.angleDown,
-                                  color: Color.fromARGB(255, 0, 29, 61),
-                                  size: 20,
-                                ),
-                                borderRadius: BorderRadius.circular(10),
-                                dropdownColor: Color.fromARGB(255, 255, 214, 10),
-                                style: const TextStyle(
-                                  color: Color.fromARGB(255, 0, 29, 61),
-                                  fontSize: 20,
-                                ),
-                              ),
+                              ],
                             ),
                           ),
                           Padding(
@@ -241,7 +177,7 @@ class _MapPageState extends State<MapPage> {
                                 isExpanded: true,
                                 underline: SizedBox(),
                                 value: viewModel.ruta,
-                                items: ['La Romana - Sto.Dom', 'Sto.Dom - Santiago', 'Ruta 3']
+                                items: ['La Romana - Sto.Dom', 'Sto.Dom - Santiago']
                                   .map((String ruta) => DropdownMenuItem<String>(
                                     value: ruta,
                                     child: Text(ruta,
@@ -359,7 +295,7 @@ class _MapPageState extends State<MapPage> {
                                           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                                         ),
                                         onPressed: () {}, 
-                                        child: Text('Reservar asiento',
+                                        child: Text('Iniciar viaje',
                                           style: TextStyle(
                                             fontSize: 20,
                                             fontWeight: FontWeight.w600),

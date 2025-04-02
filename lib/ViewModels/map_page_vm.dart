@@ -1,23 +1,35 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 
 class MapPageViewModel extends ChangeNotifier {
   String? _ruta;
   String? _empresa;
   double? _scrollableListSize = 0.07;
+  bool _loading = true;
   String rutaRomana = 'assets/ruta_la_romana_sto_dom.geojson';
   List<LatLng> _routeCoordinates = [];
   List<Marker> _routeMarkers = [];
+  Position? _currentPosition;
+  StreamSubscription<Position>? _streamSubscription;
+
+  bool get loading => _loading;
+  Position? get currentPosition => _currentPosition;
   List<LatLng> get routeCoordinates => _routeCoordinates;
   List<Marker> get routeMarkers => _routeMarkers;
   String? get ruta => _ruta;
   String? get empresa => _empresa;
   double? get scrollableListSize => _scrollableListSize;
 
+  MapPageViewModel() {
+    _init();
+  }
+  
   Future<void> loadGeoJson(String ruta) async {
     final String data = await rootBundle.loadString(ruta);
     final Map<String, dynamic> geoJson = jsonDecode(data);
@@ -29,6 +41,45 @@ class MapPageViewModel extends ChangeNotifier {
     }).toList();
 
     notifyListeners();
+  }
+
+  Future<void> _init() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error('Los Servicios de ubicación están desactivados.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Los servicios de ubicación están denegados.');
+      }
+    }
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error(
+          'Los servicios de ubicación están denegados permanentemente, no podemos solicitar permisos.');
+    }
+
+    _streamSubscription = Geolocator.getPositionStream(
+      locationSettings: const LocationSettings(
+        accuracy: LocationAccuracy.high,
+        distanceFilter: 100,
+      ),
+    ).listen((Position position) {
+      _currentPosition = position;
+      _loading = false;
+      notifyListeners();
+    });
+  }
+
+  @override
+  void dispose() {
+    _streamSubscription?.cancel();
+    super.dispose();
   }
 
   void setRuta(String newRuta) {
