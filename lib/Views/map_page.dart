@@ -104,7 +104,9 @@ class _MapPageState extends State<MapPage> {
                 Icons.settings, 
                 color: Color.fromARGB(255, 255, 214, 10),
                 size: 30,),
-              onPressed: () {}
+              onPressed: () {
+                Navigator.pushNamed(context, '/settingsPage');
+              }
             )
           ),
           Positioned(
