@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:guaguero/Services/signalr_service.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:signalr_core/signalr_core.dart';
 
 class MapPageViewModel extends ChangeNotifier {
   String? _ruta;
@@ -22,13 +24,25 @@ class MapPageViewModel extends ChangeNotifier {
     final String data = await rootBundle.loadString(ruta);
     final Map<String, dynamic> geoJson = jsonDecode(data);
     final List coordinates = geoJson['features'][0]['geometry']['coordinates'];
-    _routeCoordinates = coordinates.map<LatLng>((point) {
-      final double long = point[0];
-      final double lat = point[1];
-      return LatLng(lat, long);
-    }).toList();
+    _routeCoordinates =
+        coordinates.map<LatLng>((point) {
+          final double long = point[0];
+          final double lat = point[1];
+          return LatLng(lat, long);
+        }).toList();
 
     notifyListeners();
+  }
+
+  MapPageViewModel() {
+    SignalRService(serverUrl: 'http://10.0.2.2:5095/travelHub')
+        .startConnection()
+        .then((_) {
+          print("Conexión a SignalR iniciada correctamente");
+        })
+        .catchError((error) {
+          print("Error al iniciar la conexión a SignalR: $error");
+        });
   }
 
   void setRuta(String newRuta) {
@@ -38,32 +52,32 @@ class MapPageViewModel extends ChangeNotifier {
       loadGeoJson(newRuta);
 
       final List waypoints = [
-        LatLng(18.408742,-69.543151),
-        LatLng(18.453213,-69.186487),
-        LatLng(18.449958,-69.668553),
-        LatLng(18.450846,-69.685045)
+        LatLng(18.408742, -69.543151),
+        LatLng(18.453213, -69.186487),
+        LatLng(18.449958, -69.668553),
+        LatLng(18.450846, -69.685045),
       ];
 
-      _routeMarkers = waypoints.map((coordinate) {
-        return Marker(
-          point: coordinate,
-          width: 40,
-          height: 40,
-          child: const Icon(
-            Icons.location_on_rounded,
-            color: Colors.red,
-            size: 40,
-          ),
-        );
-      }).toList();
-    }
-    else {
+      _routeMarkers =
+          waypoints.map((coordinate) {
+            return Marker(
+              point: coordinate,
+              width: 40,
+              height: 40,
+              child: const Icon(
+                Icons.location_on_rounded,
+                color: Colors.red,
+                size: 40,
+              ),
+            );
+          }).toList();
+    } else {
       _routeMarkers = []; // Clear previous markers
       _routeCoordinates = []; // Clear previous coordinates
     }
     notifyListeners();
   }
-  
+
   void setEmpresa(String newEmpresa) {
     _empresa = newEmpresa;
     notifyListeners();
