@@ -57,8 +57,10 @@ class MapPageViewModel extends ChangeNotifier {
         );
       }).toList();
     }
-    _routeMarkers = []; // Clear previous markers
-    _routeCoordinates = []; // Clear previous coordinates
+    else {
+      _routeMarkers = []; // Clear previous markers
+      _routeCoordinates = []; // Clear previous coordinates
+    }
     notifyListeners();
   }
   
