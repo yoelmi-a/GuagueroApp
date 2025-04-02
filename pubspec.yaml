@@ -22,6 +22,8 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets: 
+    - assets\ruta_la_romana_sto_dom.geojson
   fonts:
     - family: Poppins
       fonts:

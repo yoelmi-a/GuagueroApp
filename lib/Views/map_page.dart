@@ -55,13 +55,6 @@ class _MapPageState extends State<MapPage> {
   Widget build(BuildContext context){
     final viewModel = Provider.of<MapPageViewModel>(context);
     DraggableScrollableController controller = DraggableScrollableController();
-    final List<LatLng> rutaLosAngeles = [
-      LatLng(34.052235, -118.243683), // Downtown LA
-      LatLng(34.057235, -118.245683),
-      LatLng(34.062235, -118.250683),
-      LatLng(34.067235, -118.255683),
-      LatLng(34.072235, -118.260683),
-    ];
 
     return Scaffold(
       body: _loading 
@@ -89,14 +82,15 @@ class _MapPageState extends State<MapPage> {
                       color: Colors.red,
                       size: 40,
                     ),
-                  )
+                  ),
                 ],
               ),
+              MarkerLayer(markers: viewModel.routeMarkers),
               PolylineLayer(
                 polylines: [
                   Polyline(
-                    points: rutaLosAngeles,
-                    strokeWidth: 7.0,
+                    points: viewModel.routeCoordinates,
+                    strokeWidth: 4,
                     color: Colors.red
                   )
                 ])
@@ -245,7 +239,7 @@ class _MapPageState extends State<MapPage> {
                                 isExpanded: true,
                                 underline: SizedBox(),
                                 value: viewModel.ruta,
-                                items: ['La Romana - Sto.Dom', 'Ruta 2', 'Ruta 3']
+                                items: ['La Romana - Sto.Dom', 'Sto.Dom - Santiago', 'Ruta 3']
                                   .map((String ruta) => DropdownMenuItem<String>(
                                     value: ruta,
                                     child: Text(ruta,
