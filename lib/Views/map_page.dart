@@ -133,7 +133,7 @@ class MapPage extends StatelessWidget {
                                   ),
                                   const SizedBox(height: 18),
                                   Text(
-                                    'Bienvenido Nombre!',
+                                    'Bienvenido Luciano!',
                                     style: TextStyle(
                                       fontSize: 24,
                                       fontWeight: FontWeight.w600,
@@ -143,31 +143,7 @@ class MapPage extends StatelessWidget {
                                   const SizedBox(height: 8),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      const Text(
-                                        'Saldo Actual:  ',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w500,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                      Text(
-                                        '\$1000',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w600,
-                                          color: Color.fromARGB(
-                                            255,
-                                            255,
-                                            214,
-                                            10,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
+                                    children: [],
                                   ),
                                   const SizedBox(height: 8),
                                   Padding(
@@ -353,7 +329,7 @@ class MapPage extends StatelessWidget {
                                               ),
                                             ),
                                             Text(
-                                              'X',
+                                              '5',
                                               style: TextStyle(
                                                 fontSize: 20,
                                                 fontWeight: FontWeight.w600,
@@ -389,7 +365,7 @@ class MapPage extends StatelessWidget {
                                             ),
                                             const SizedBox(width: 20),
                                             Text(
-                                              '1h 31m',
+                                              '2h 18m',
                                               style: TextStyle(
                                                 fontSize: 30,
                                                 fontWeight: FontWeight.w600,
@@ -547,7 +523,7 @@ class MapPage extends StatelessWidget {
                                                                                   MainAxisAlignment.spaceBetween,
                                                                               children: const [
                                                                                 Text(
-                                                                                  'Nombre',
+                                                                                  'Reserva',
                                                                                   style: TextStyle(
                                                                                     color: Color.fromARGB(
                                                                                       255,
@@ -562,7 +538,7 @@ class MapPage extends StatelessWidget {
                                                                                   ),
                                                                                 ),
                                                                                 Text(
-                                                                                  'Acepto',
+                                                                                  'Abordo',
                                                                                   style: TextStyle(
                                                                                     color: Color.fromARGB(
                                                                                       255,
@@ -584,7 +560,7 @@ class MapPage extends StatelessWidget {
                                                                               children: [
                                                                                 const Expanded(
                                                                                   child: Text(
-                                                                                    'Lucas',
+                                                                                    'RE0001',
                                                                                     style: TextStyle(
                                                                                       color:
                                                                                           Colors.white,
