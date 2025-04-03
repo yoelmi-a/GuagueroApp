@@ -14,7 +14,7 @@ class MainApp extends StatelessWidget {
   const MainApp({super.key});
 
   // URL de tu servidor SignalR
-  final String signalRServerUrl = 'http://10.0.2.2:5095/travelHub';
+  final String signalRServerUrl = 'https://localhost:7035/travelHub';
 
   @override
   Widget build(BuildContext context) {

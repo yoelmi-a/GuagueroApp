@@ -8,66 +8,23 @@ import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
 import 'package:signalr_core/signalr_core.dart';
 
-class MapPage extends StatefulWidget {
+class MapPage extends StatelessWidget {
   const MapPage({super.key});
 
   @override
-  State<MapPage> createState() => _MapPageState();
-}
-
-class _MapPageState extends State<MapPage> {
-  LatLng _currentPosition = LatLng(0, 0);
-  bool _loading = true;
-
-  @override
-  void initState() {
-    super.initState();
-    _getPosition();
-  }
-
-  Future<void> _getPosition() async {
-    bool serviceEnabled;
-    LocationPermission permission;
-
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      return Future.error('Los Servicios de ubicación están desactivados.');
-    }
-
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        return Future.error('Los servicios de ubicación están denegados.');
-      }
-    }
-    if (permission == LocationPermission.deniedForever) {
-      return Future.error(
-        'Los servicios de ubicación están denegados permanentemente, no podemos solicitar permisos.',
-      );
-    }
-
-    Position position = await Geolocator.getCurrentPosition();
-    setState(() {
-      _currentPosition = LatLng(position.latitude, position.longitude);
-      _loading = false;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final viewModel = Provider.of<MapPageViewModel>(context);
+    final viewModel = Provider.of<MapPageViewModel>(context, listen: true);
     DraggableScrollableController controller = DraggableScrollableController();
 
     return Scaffold(
       body:
-          _loading
+          viewModel.loading
               ? const Center(child: CircularProgressIndicator())
               : Stack(
                 children: [
                   FlutterMap(
                     options: MapOptions(
-                      initialCenter: _currentPosition,
+                      initialCenter: viewModel.currentPosition,
                       initialZoom: 13.0,
                     ),
                     children: [
@@ -76,10 +33,19 @@ class _MapPageState extends State<MapPage> {
                             'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
                         userAgentPackageName: 'com.Guaguero!.FeriaCientifica',
                       ),
+                      PolylineLayer(
+                        polylines: [
+                          Polyline(
+                            points: viewModel.routeCoordinates,
+                            strokeWidth: 4,
+                            color: Colors.lightBlue.shade700,
+                          ),
+                        ],
+                      ),
                       MarkerLayer(
                         markers: [
                           Marker(
-                            point: _currentPosition,
+                            point: viewModel.currentPosition,
                             width: 40,
                             height: 40,
                             child: const Icon(
@@ -91,15 +57,6 @@ class _MapPageState extends State<MapPage> {
                         ],
                       ),
                       MarkerLayer(markers: viewModel.routeMarkers),
-                      PolylineLayer(
-                        polylines: [
-                          Polyline(
-                            points: viewModel.routeCoordinates,
-                            strokeWidth: 4,
-                            color: Colors.red,
-                          ),
-                        ],
-                      ),
                     ],
                   ),
                   Positioned(
@@ -320,7 +277,6 @@ class _MapPageState extends State<MapPage> {
                                             [
                                                   'La Romana - Sto.Dom',
                                                   'Sto.Dom - Santiago',
-                                                  'Ruta 3',
                                                 ]
                                                 .map(
                                                   (String ruta) =>
@@ -517,9 +473,7 @@ class _MapPageState extends State<MapPage> {
                                                         vertical: 15,
                                                       ),
                                                 ),
-                                                onPressed: () async {
-                                                  final travel =
-                                                      "TRAVEL_123"; // Simulated data
+                                                onPressed: () async {// Simulated data
                                                   final signalRService =
                                                       Provider.of<
                                                         SignalRService
@@ -527,19 +481,19 @@ class _MapPageState extends State<MapPage> {
                                                   // Create a reservation using the travelId
                                                   await signalRService.createReservation(
                                                     travelID:
-                                                        travel, // Simulated data
+                                                        viewModel.travelID, // Simulated data
                                                     customerID:
-                                                        "CUSTOMER_456", // Simulated data
-                                                    entryStep:
                                                         1, // Simulated data
+                                                    entryStep:
+                                                        viewModel.parada == 0 ? viewModel.puntoMasCercano : viewModel.parada, // Simulated data
                                                     seatsQuantity:
-                                                        2, // Simulated data
+                                                        1, // Simulated data
                                                     paymentType:
                                                         "Credit", // Simulated data
                                                   );
                                                   // Subscribe to travel updates for the same travelId
                                                   await signalRService
-                                                      .suscribeToTravel(travel);
+                                                      .suscribeToTravel(viewModel.travelID);
                                                   // Optionally, show a confirmation Snackbar
                                                   ScaffoldMessenger.of(
                                                     context,

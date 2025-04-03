@@ -81,8 +81,8 @@ class SignalRService with ChangeNotifier {
 
   /// Método para crear una reserva (invoca el comando CreateReser en el hub)
   Future<void> createReservation({
-    required String travelID,
-    required String customerID,
+    required int travelID,
+    required int customerID,
     required int entryStep,
     required int seatsQuantity,
     required String paymentType,
@@ -131,7 +131,7 @@ class SignalRService with ChangeNotifier {
   }
 
   /// Método para suscribir al cliente a actualizaciones de un viaje
-  Future<void> suscribeToTravel(String travelId) async {
+  Future<void> suscribeToTravel(int travelId) async {
     try {
       if (_hubConnection.state != HubConnectionState.connected) {
         print("La conexión no está lista, esperando...");
