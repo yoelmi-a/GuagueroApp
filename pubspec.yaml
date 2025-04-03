@@ -12,6 +12,7 @@ dependencies:
   flutter_map: ^7.0.2
   latlong2: ^0.9.1
   geolocator: ^12.0.0
+  signalr_core: ^1.1.2
   provider: ^6.1.4
   font_awesome_flutter: ^10.8.0
 
