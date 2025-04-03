@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:guaguero/Models/transaction_dto.dart';
 import 'package:signalr_core/signalr_core.dart';
 
 class SignalRService with ChangeNotifier {
@@ -45,6 +46,23 @@ class SignalRService with ChangeNotifier {
         notifyListeners();
       });
 
+      // Register the method that will be invoked by the server.
+    _hubConnection.on('NotifyTravelChange', (arguments) {
+      if (arguments != null && arguments.isNotEmpty) {
+        // Assuming the first argument is our notification as a Map.
+        final Map<String, dynamic> jsonData = arguments.first;
+        final notification = TravelLocationChangeNotification.fromJson(jsonData);
+
+        // Handle the notification (e.g., update UI, state management, etc.).
+        print('Received notification for travelID: ${notification.travelID}');
+        print('Actual location: ${notification.actualLocation.lat}, ${notification.actualLocation.lng}');
+        print('Next Step: ${notification.nextStep}');
+        print('Step State: ${notification.stepState}');
+        print('Waypoint location: ${notification.waypointLocation.lat}, ${notification.waypointLocation.lng}');
+        print('Tiempo Estimado: ${notification.tiempoEstimado}');
+      }
+    });
+
       await _hubConnection.start();
       print("Conexión iniciada correctamente");
     } catch (e) {
@@ -81,8 +99,8 @@ class SignalRService with ChangeNotifier {
 
   /// Método para crear una reserva (invoca el comando CreateReser en el hub)
   Future<void> createReservation({
-    required int travelID,
-    required int customerID,
+    required String travelID,
+    required String customerID,
     required int entryStep,
     required int seatsQuantity,
     required String paymentType,
@@ -131,7 +149,7 @@ class SignalRService with ChangeNotifier {
   }
 
   /// Método para suscribir al cliente a actualizaciones de un viaje
-  Future<void> suscribeToTravel(int travelId) async {
+  Future<void> suscribeToTravel(String travelId) async {
     try {
       if (_hubConnection.state != HubConnectionState.connected) {
         print("La conexión no está lista, esperando...");

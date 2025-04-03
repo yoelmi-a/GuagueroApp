@@ -57,6 +57,21 @@ class MapPage extends StatelessWidget {
                         ],
                       ),
                       MarkerLayer(markers: viewModel.routeMarkers),
+                      MarkerLayer(
+                        markers: viewModel.bookIsActive ?
+                        [
+                          Marker(
+                            point: viewModel.busPosition,
+                            width: 40,
+                            height: 40,
+                            child: const Icon(
+                              Icons.location_on_rounded,
+                              color: Colors.red,
+                              size: 40,
+                            ),
+                          ),
+                        ] : [],
+                        )
                     ],
                   ),
                   Positioned(
@@ -337,6 +352,66 @@ class MapPage extends StatelessWidget {
                                       ),
                                     ),
                                   ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                      left: 20,
+                                      right: 20,
+                                      top: 15,
+                                    ),
+                                    child: TextField(
+                                      keyboardType: TextInputType.number,
+                                      style: TextStyle(color: Colors.grey[100]),
+                                      decoration: InputDecoration(
+                                        labelText: 'Asientos',
+                                        labelStyle: TextStyle(
+                                          color: Colors.grey[100],
+                                        ),
+                                        hintText:
+                                            '1',
+                                        hintStyle: TextStyle(
+                                          color: Colors.grey[100],
+                                        ),
+                                        border: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Color.fromARGB(
+                                              255,
+                                              255,
+                                              214,
+                                              10,
+                                            ),
+                                            width: 2,
+                                          ),
+                                          borderRadius: BorderRadius.circular(10),
+                                        ),
+                                    
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Color.fromARGB(
+                                              255,
+                                              255,
+                                              214,
+                                              10,
+                                            ),
+                                            width: 2,
+                                          ),
+                                          borderRadius: BorderRadius.circular(10),
+                                        ),
+                                    
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Color.fromARGB(
+                                              255,
+                                              255,
+                                              214,
+                                              10,
+                                            ),
+                                            width: 2,
+                                          ),
+                                          borderRadius: BorderRadius.circular(10),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                                   const SizedBox(height: 20),
                                   Padding(
                                     padding: const EdgeInsets.only(
@@ -391,7 +466,7 @@ class MapPage extends StatelessWidget {
                                               ),
                                             ),
                                             Text(
-                                              'X',
+                                              '5',
                                               style: TextStyle(
                                                 fontSize: 20,
                                                 fontWeight: FontWeight.w600,
@@ -418,7 +493,7 @@ class MapPage extends StatelessWidget {
                                           children: [
                                             const SizedBox(width: 20),
                                             const Text(
-                                              'Tiempo \nestimado \nen llegar: ',
+                                              'Ultima \nSalida: ',
                                               style: TextStyle(
                                                 fontSize: 20,
                                                 fontWeight: FontWeight.w500,
@@ -427,7 +502,7 @@ class MapPage extends StatelessWidget {
                                             ),
                                             const SizedBox(width: 20),
                                             Text(
-                                              '1h 31m',
+                                              '2:30 PM',
                                               style: TextStyle(
                                                 fontSize: 30,
                                                 fontWeight: FontWeight.w600,
@@ -473,7 +548,9 @@ class MapPage extends StatelessWidget {
                                                         vertical: 15,
                                                       ),
                                                 ),
-                                                onPressed: () async {// Simulated data
+                                                onPressed: () async {
+                                                  // Simulated data
+                                                  viewModel.setBookIsActive();
                                                   final signalRService =
                                                       Provider.of<
                                                         SignalRService
@@ -481,11 +558,16 @@ class MapPage extends StatelessWidget {
                                                   // Create a reservation using the travelId
                                                   await signalRService.createReservation(
                                                     travelID:
-                                                        viewModel.travelID, // Simulated data
+                                                        viewModel
+                                                            .travelID, // Simulated data
                                                     customerID:
-                                                        1, // Simulated data
+                                                        'A3F47C2B-1B3D-4E19-8E2A-3D9F7C5A1D5E', // Simulated data
                                                     entryStep:
-                                                        viewModel.parada == 0 ? viewModel.puntoMasCercano : viewModel.parada, // Simulated data
+                                                        viewModel.parada == 0
+                                                            ? viewModel
+                                                                .puntoMasCercano
+                                                            : viewModel
+                                                                .parada, // Simulated data
                                                     seatsQuantity:
                                                         1, // Simulated data
                                                     paymentType:
@@ -493,7 +575,9 @@ class MapPage extends StatelessWidget {
                                                   );
                                                   // Subscribe to travel updates for the same travelId
                                                   await signalRService
-                                                      .suscribeToTravel(viewModel.travelID);
+                                                      .suscribeToTravel(
+                                                        viewModel.travelID,
+                                                      );
                                                   // Optionally, show a confirmation Snackbar
                                                   ScaffoldMessenger.of(
                                                     context,

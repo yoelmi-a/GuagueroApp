@@ -9,8 +9,10 @@ import 'package:latlong2/latlong.dart';
 import 'package:signalr_core/signalr_core.dart';
 
 class MapPageViewModel extends ChangeNotifier {
-  int _travelID = 0;
+  String _travelID = '';
+  bool _bookIsActive = false;
   LatLng _currentPosition = LatLng(0, 0);
+  LatLng _busPosition = LatLng(0, 0);
   bool _loading = true;
   String? _ruta;
   String? _empresa;
@@ -20,7 +22,9 @@ class MapPageViewModel extends ChangeNotifier {
   String rutaRomana = 'assets/ruta_la_romana_sto_dom.geojson';
   List<LatLng> _routeCoordinates = [];
   List<Marker> _routeMarkers = [];
-  int get travelID => _travelID;
+  LatLng get busPosition => _busPosition;
+  bool get bookIsActive => _bookIsActive;
+  String get travelID => _travelID;
   bool get loading => _loading;
   LatLng get currentPosition => _currentPosition;
   int get parada => _parada;
@@ -60,7 +64,7 @@ class MapPageViewModel extends ChangeNotifier {
   void setRuta(String newRuta) {
     _ruta = newRuta;
     if (newRuta == 'La Romana - Sto.Dom') {
-      _travelID = 1;
+      _travelID = 'F7C2A3D5-1B4E-4D19-8E2F-9F6A3C5B7D1E';
       newRuta = rutaRomana;
       loadGeoJson(newRuta);
 
@@ -151,6 +155,11 @@ class MapPageViewModel extends ChangeNotifier {
 
   void setScrollableListSize(double newSize) {
     _scrollableListSize = newSize;
+    notifyListeners();
+  }
+
+  void setBookIsActive() {
+    _bookIsActive = true;
     notifyListeners();
   }
 }
