@@ -439,28 +439,242 @@ class MapPage extends StatelessWidget {
                                                   // Llama al método iniciarViaje del ViewModel
                                                   viewModel.iniciarViaje();
 
-                                                  // Muestra una alerta indicando que el viaje se inició
+                                                  // Guarda el contexto padre para usarlo más adelante
+                                                  final parentContext = context;
+
+                                                  // Muestra el primer AlertDialog
                                                   showDialog(
-                                                    context: context,
+                                                    context: parentContext,
                                                     builder: (
                                                       BuildContext context,
                                                     ) {
                                                       return AlertDialog(
+                                                        backgroundColor:
+                                                            const Color.fromARGB(
+                                                              255,
+                                                              0,
+                                                              29,
+                                                              61,
+                                                            ),
+                                                        shape: RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius.circular(
+                                                                20,
+                                                              ),
+                                                        ),
                                                         title: const Text(
                                                           'Viaje Iniciado',
+                                                          style: TextStyle(
+                                                            color:
+                                                                Color.fromARGB(
+                                                                  255,
+                                                                  255,
+                                                                  214,
+                                                                  10,
+                                                                ),
+                                                            fontSize: 24,
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                          ),
                                                         ),
                                                         content: const Text(
                                                           'El viaje se ha iniciado correctamente.',
+                                                          style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 20,
+                                                          ),
                                                         ),
                                                         actions: [
                                                           TextButton(
+                                                            style: TextButton.styleFrom(
+                                                              backgroundColor:
+                                                                  const Color.fromARGB(
+                                                                    255,
+                                                                    255,
+                                                                    214,
+                                                                    10,
+                                                                  ),
+                                                              shape: RoundedRectangleBorder(
+                                                                borderRadius:
+                                                                    BorderRadius.circular(
+                                                                      10,
+                                                                    ),
+                                                              ),
+                                                            ),
                                                             onPressed: () {
                                                               Navigator.of(
                                                                 context,
                                                               ).pop();
+
+                                                              // Espera 10 segundos antes de mostrar la segunda alerta
+                                                              Future.delayed(
+                                                                const Duration(
+                                                                  seconds: 5,
+                                                                ),
+                                                                () {
+                                                                  showDialog(
+                                                                    context:
+                                                                        parentContext,
+                                                                    builder: (
+                                                                      BuildContext
+                                                                      context,
+                                                                    ) {
+                                                                      // Usamos StatefulBuilder para manejar el estado del Switch
+                                                                      bool
+                                                                      switchValue =
+                                                                          false;
+                                                                      return StatefulBuilder(
+                                                                        builder: (
+                                                                          BuildContext
+                                                                          context,
+                                                                          StateSetter
+                                                                          setState,
+                                                                        ) {
+                                                                          return AlertDialog(
+                                                                            backgroundColor: const Color.fromARGB(
+                                                                              255,
+                                                                              0,
+                                                                              29,
+                                                                              61,
+                                                                            ),
+                                                                            shape: RoundedRectangleBorder(
+                                                                              borderRadius: BorderRadius.circular(
+                                                                                20,
+                                                                              ),
+                                                                            ),
+                                                                            title: Row(
+                                                                              mainAxisAlignment:
+                                                                                  MainAxisAlignment.spaceBetween,
+                                                                              children: const [
+                                                                                Text(
+                                                                                  'Nombre',
+                                                                                  style: TextStyle(
+                                                                                    color: Color.fromARGB(
+                                                                                      255,
+                                                                                      255,
+                                                                                      214,
+                                                                                      10,
+                                                                                    ),
+                                                                                    fontSize:
+                                                                                        24,
+                                                                                    fontWeight:
+                                                                                        FontWeight.w600,
+                                                                                  ),
+                                                                                ),
+                                                                                Text(
+                                                                                  'Acepto',
+                                                                                  style: TextStyle(
+                                                                                    color: Color.fromARGB(
+                                                                                      255,
+                                                                                      255,
+                                                                                      214,
+                                                                                      10,
+                                                                                    ),
+                                                                                    fontSize:
+                                                                                        24,
+                                                                                    fontWeight:
+                                                                                        FontWeight.w600,
+                                                                                  ),
+                                                                                ),
+                                                                              ],
+                                                                            ),
+                                                                            content: Row(
+                                                                              mainAxisAlignment:
+                                                                                  MainAxisAlignment.spaceBetween,
+                                                                              children: [
+                                                                                const Expanded(
+                                                                                  child: Text(
+                                                                                    'Lucas',
+                                                                                    style: TextStyle(
+                                                                                      color:
+                                                                                          Colors.white,
+                                                                                      fontSize:
+                                                                                          20,
+                                                                                    ),
+                                                                                  ),
+                                                                                ),
+                                                                                Switch(
+                                                                                  value:
+                                                                                      switchValue,
+                                                                                  activeColor: const Color.fromARGB(
+                                                                                    255,
+                                                                                    255,
+                                                                                    214,
+                                                                                    10,
+                                                                                  ),
+                                                                                  onChanged: (
+                                                                                    bool newValue,
+                                                                                  ) {
+                                                                                    setState(
+                                                                                      () {
+                                                                                        switchValue =
+                                                                                            newValue;
+                                                                                      },
+                                                                                    );
+                                                                                  },
+                                                                                ),
+                                                                              ],
+                                                                            ),
+                                                                            actions: [
+                                                                              TextButton(
+                                                                                style: TextButton.styleFrom(
+                                                                                  backgroundColor: const Color.fromARGB(
+                                                                                    255,
+                                                                                    255,
+                                                                                    214,
+                                                                                    10,
+                                                                                  ),
+                                                                                  shape: RoundedRectangleBorder(
+                                                                                    borderRadius: BorderRadius.circular(
+                                                                                      10,
+                                                                                    ),
+                                                                                  ),
+                                                                                ),
+                                                                                onPressed: () {
+                                                                                  Navigator.of(
+                                                                                    context,
+                                                                                  ).pop();
+                                                                                },
+                                                                                child: const Text(
+                                                                                  'Aceptar',
+                                                                                  style: TextStyle(
+                                                                                    color: Color.fromARGB(
+                                                                                      255,
+                                                                                      0,
+                                                                                      29,
+                                                                                      61,
+                                                                                    ),
+                                                                                    fontSize:
+                                                                                        20,
+                                                                                    fontWeight:
+                                                                                        FontWeight.w600,
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                            ],
+                                                                          );
+                                                                        },
+                                                                      );
+                                                                    },
+                                                                  );
+                                                                },
+                                                              );
                                                             },
                                                             child: const Text(
                                                               'OK',
+                                                              style: TextStyle(
+                                                                color:
+                                                                    Color.fromARGB(
+                                                                      255,
+                                                                      0,
+                                                                      29,
+                                                                      61,
+                                                                    ),
+                                                                fontSize: 20,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                              ),
                                                             ),
                                                           ),
                                                         ],
